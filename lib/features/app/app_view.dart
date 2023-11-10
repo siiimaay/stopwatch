@@ -11,10 +11,6 @@ class StopWatchAppView extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Stopwatch',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
       debugShowCheckedModeBanner: false,
       routeInformationParser: _router.routeInformationParser,
       routeInformationProvider: _router.routeInformationProvider,
