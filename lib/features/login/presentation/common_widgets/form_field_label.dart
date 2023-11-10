@@ -11,7 +11,7 @@ class FormFieldLabel extends StatelessWidget {
       child: Text(
         label,
         textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w600),
+        style: const TextStyle(color: Colors.indigo, fontWeight: FontWeight.w600),
       ),
     );
   }

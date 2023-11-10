@@ -86,16 +86,14 @@ class _SignUpViewState extends State<SignUpView> {
             )),
             const FormFieldLabel(label: 'Phone'),
             Flexible(child: AuthTextField(controller: _phoneNumberController)),
-            SizedBox(
-              height: 30,
-            ),
+            const SizedBox(height: 30),
             Center(
               child: ActionButton(
                 buttonText: 'Create Account',
                 onPressed: () {},
                 textColor: Colors.indigo,
-                buttonSize: Size(200, 45),
-                gradient: LinearGradient(colors: [
+                buttonSize: const Size(200, 45),
+                gradient: const LinearGradient(colors: [
                   Color(0xFFD1C4E9),
                   Color(0xFFBBDEFB),
                 ]),

@@ -52,16 +52,12 @@ class _LoginViewState extends State<LoginView> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            FormFieldLabel(
-              label: 'Email',
-            ),
+            const FormFieldLabel(label: 'Email'),
             Flexible(
                 child: AuthTextField(
               controller: _emailController,
             )),
-            FormFieldLabel(
-              label: 'Password',
-            ),
+            const FormFieldLabel(label: 'Password'),
             Flexible(
                 flex: 1,
                 fit: FlexFit.tight,
@@ -71,7 +67,7 @@ class _LoginViewState extends State<LoginView> {
                 buttonText: "Login",
                 onPressed: () {},
                 textColor: Colors.indigo,
-                buttonSize: Size(200, 50),
+                buttonSize: const Size(200, 50),
                 gradient: const LinearGradient(colors: [
                   Color(0xFFD1C4E9),
                   Color(0xFFBBDEFB),

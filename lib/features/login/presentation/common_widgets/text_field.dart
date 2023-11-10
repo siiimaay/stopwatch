@@ -8,7 +8,7 @@ class AuthTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(top: 8, bottom: 24),
+      padding: const EdgeInsets.only(top: 8, bottom: 24),
       child: TextFormField(
         controller: controller,
         cursorColor: Colors.grey,

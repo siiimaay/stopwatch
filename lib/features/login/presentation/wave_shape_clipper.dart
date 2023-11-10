@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class HeaderWaveClipper extends CustomClipper<Path> {
-  HeaderWaveClipper();
 
   @override
   Path getClip(Size size) {
