@@ -4,6 +4,7 @@ import 'package:stopwatch/features/login/presentation/auth_view.dart';
 import 'package:stopwatch/features/login/presentation/login_view.dart';
 
 import '../features/login/presentation/sign_up_view.dart';
+import '../features/stopwatch/presentation/stopwatch.dart';
 
 class AppRouter {
   AppRouter._();
@@ -21,7 +22,7 @@ class AppRouter {
           name: authRoute,
           path: '/',
           pageBuilder: (context, state) {
-            return MaterialPage(child: AuthenticationView());
+            return const MaterialPage(child: AuthenticationView());
           },
         ),
         GoRoute(
@@ -42,7 +43,7 @@ class AppRouter {
           name: stopwatchRoute,
           path: '/$stopwatchRoute',
           pageBuilder: (context, state) {
-            return const MaterialPage(child: Placeholder());
+            return MaterialPage(child: StopWatchView());
           },
         ),
         GoRoute(
