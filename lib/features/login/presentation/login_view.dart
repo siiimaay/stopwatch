@@ -28,10 +28,6 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-            color: Colors.indigo,
-            onPressed: () =>
-                GoRouter.of(context).pushNamed(AppRouter.authRoute)),
         centerTitle: true,
         title: const Text(
           "Login",
@@ -65,7 +61,9 @@ class _LoginViewState extends State<LoginView> {
             Center(
               child: ActionButton(
                 buttonText: "Login",
-                onPressed: () {},
+                onPressed: () {
+                  GoRouter.of(context).go('/${AppRouter.stopwatchRoute}');
+                },
                 textColor: Colors.indigo,
                 buttonSize: const Size(200, 50),
                 gradient: const LinearGradient(colors: [

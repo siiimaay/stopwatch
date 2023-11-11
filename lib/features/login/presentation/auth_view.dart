@@ -33,8 +33,8 @@ class AuthenticationView extends StatelessWidget {
           Flexible(
             child: ActionButton(
               buttonText: 'Login',
-              onPressed: () async =>
-                  await GoRouter.of(context).pushNamed(AppRouter.loginRoute),
+              onPressed: () =>
+                  GoRouter.of(context).pushNamed(AppRouter.loginRoute),
               buttonSize: const Size(300, 50),
               gradient: const LinearGradient(
                 colors: [
