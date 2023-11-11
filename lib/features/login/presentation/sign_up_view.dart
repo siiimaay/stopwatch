@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:stopwatch/features/login/presentation/common_widgets/form_field_label.dart';
-import 'package:stopwatch/routes/route_config.dart';
 import 'package:stopwatch/widgets/action_button.dart';
 
 import 'common_widgets/text_field.dart';
@@ -32,10 +30,6 @@ class _SignUpViewState extends State<SignUpView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(
-            color: Colors.indigo,
-            onPressed: () =>
-                GoRouter.of(context).pushNamed(AppRouter.authRoute)),
         centerTitle: true,
         title: const Text(
           "Sign-up",
