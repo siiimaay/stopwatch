@@ -38,6 +38,13 @@ dependencies:
   go_router: ^12.1.1
   lottie: ^2.3.2
   flutter_bloc: ^7.0.0
+  get_it: ^7.6.4
+  firebase_core: ^2.22.0
+  firebase_auth: ^4.13.0
+  cloud_firestore: ^4.13.0
+  intl_phone_number_input: ^0.7.3+1
+  json_serializable: ^6.7.1
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   flutter_test:
