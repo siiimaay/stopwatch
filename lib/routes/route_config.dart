@@ -1,9 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:stopwatch/features/auth/presentation/login_view.dart';
+import 'package:stopwatch/features/history/data/history_detail.dart';
 
 import '../features/auth/presentation/auth_view.dart';
 import '../features/auth/presentation/sign_up_view.dart';
+import '../features/history/presentation/stopwatch_detail.dart';
 import '../features/stopwatch/presentation/stopwatch.dart';
 
 class AppRouter {
@@ -13,16 +16,20 @@ class AppRouter {
   static const String authRoute = 'auth';
   static const String registerRoute = 'sign_up';
   static const String stopwatchRoute = 'stopwatch';
-  static const String history = 'history';
+  static const String historyDetailRoute = 'history_detail';
 
   static GoRouter buildRouter() {
+    final hasUserLoggedIn = FirebaseAuth.instance.currentUser?.uid != null;
     return GoRouter(
       routes: [
         GoRoute(
           name: authRoute,
           path: '/',
           pageBuilder: (context, state) {
-            return const MaterialPage(child: AuthenticationView());
+            return MaterialPage(
+                child: hasUserLoggedIn
+                    ? StopWatchAppView()
+                    : AuthenticationView());
           },
         ),
         GoRoute(
@@ -47,12 +54,16 @@ class AppRouter {
           },
         ),
         GoRoute(
-          name: history,
-          path: '/$history',
-          pageBuilder: (context, state) {
-            return const MaterialPage(child: Placeholder());
-          },
-        ),
+            name: historyDetailRoute,
+            path: '/$historyDetailRoute',
+            builder: (context, state) {
+              final extra = state.extra as HistoryDetail;
+              return StopwatchDetailView(
+                duration: extra.duration ?? "",
+                laps: extra.laps ?? [],
+                name: extra.name ?? "",
+              );
+            }),
       ],
     );
   }

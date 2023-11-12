@@ -4,7 +4,7 @@ class ConfirmationDialog extends StatelessWidget {
   final String title;
   final String? content;
   final Widget child;
-  final VoidCallback onConfirm;
+  final VoidCallback? onConfirm;
 
   const ConfirmationDialog({
     super.key,
