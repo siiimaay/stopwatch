@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stopwatch/core/extensions/duration_extension.dart';
 
 import '../domain/bloc/stopwatch_bloc.dart';
 import 'lap_detail.dart';
@@ -16,13 +17,10 @@ class LapViewBlocBuilder extends StatelessWidget {
         return ListView.builder(
             itemCount: laps.length,
             itemBuilder: (context, index) {
-              final lap = laps[index];
+              final lapDuration = laps[index];
               return LapDetail(
                   title: "Lap $index",
-                  duration:
-                      '${lap.inMinutes.remainder(60).toString().padLeft(2, '0')}'
-                      ':${lap.inSeconds.toString().padLeft(2, '0')}'
-                      ':${(lap.inMilliseconds % 60).toString().padLeft(2, '0')}');
+                  duration: lapDuration.formatDurationAsText());
             });
       },
     );

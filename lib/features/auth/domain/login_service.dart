@@ -28,8 +28,8 @@ class LoginService implements IAuthService {
       );
       final userAccountInfo = account.User(
         username: email,
-        phone_number: phoneNumber,
-        country: country,
+        phoneNumber: phoneNumber,
+        countryCode: country,
       ).toJson();
 
       await _firebaseFirestore

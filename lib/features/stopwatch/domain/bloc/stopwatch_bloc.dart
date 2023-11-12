@@ -1,12 +1,17 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stopwatch/core/extensions/duration_extension.dart';
+import 'package:stopwatch/core/injection/locator.dart';
+import 'package:stopwatch/features/stopwatch/data/repository/stopwatch_repository.dart';
 
 class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
   Timer? _timer;
+  StopwatchRepository? stopwatchRepository;
 
-  StopwatchBloc()
-      : super(const StopwatchState(Duration.zero, [], false, false, false));
+  StopwatchBloc() : super(const StopwatchState()) {
+    stopwatchRepository = getIt<StopwatchRepository>();
+  }
 
   void startTimer() {
     _timer = Timer.periodic(const Duration(milliseconds: 1), (_) {
@@ -21,6 +26,16 @@ class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
   void lap() => add(LapEvent());
 
   void confirmSave() => add(ConfirmSave());
+
+  Future<void> save(String name) async {
+    try {
+      await stopwatchRepository?.saveStopwatch(
+          name, state.duration.formatDurationAsText(), state.laps.length);
+      add(SaveEvent());
+    } catch (e) {
+      add(ErrorEvent());
+    }
+  }
 
   @override
   Stream<StopwatchState> mapEventToState(StopWatchEvent event) async* {
@@ -50,6 +65,12 @@ class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
       yield state.copyWith(laps: [...lapList]);
     } else if (event is ConfirmSave) {
       yield state.copyWith(shouldMoveToSave: true, shouldAskForSave: false);
+    } else if (event is SaveEvent) {
+      yield state.copyWith(
+        hasSaveCompleted: true,
+        shouldAskForSave: false,
+        shouldMoveToSave: false,
+      );
     }
   }
 
@@ -74,6 +95,8 @@ class LapEvent extends StopWatchEvent {}
 
 class ConfirmSave extends StopWatchEvent {}
 
+class ErrorEvent extends StopWatchEvent {}
+
 class SaveEvent extends StopWatchEvent {}
 
 class StopwatchState {
@@ -82,14 +105,16 @@ class StopwatchState {
   final bool isRunning;
   final bool shouldAskForSave;
   final bool shouldMoveToSave;
+  final bool hasSaveCompleted;
 
-  const StopwatchState(
-    this.duration,
-    this.laps,
-    this.isRunning,
-    this.shouldAskForSave,
-    this.shouldMoveToSave,
-  );
+  const StopwatchState({
+    this.duration = Duration.zero,
+    this.laps = const [],
+    this.isRunning = false,
+    this.shouldAskForSave = false,
+    this.shouldMoveToSave = false,
+    this.hasSaveCompleted = false,
+  });
 
   StopwatchState copyWith({
     Duration? duration,
@@ -97,13 +122,15 @@ class StopwatchState {
     bool? isRunning,
     bool? shouldAskForSave,
     bool? shouldMoveToSave,
+    bool? hasSaveCompleted,
   }) {
     return StopwatchState(
-      duration ?? this.duration,
-      laps ?? this.laps,
-      isRunning ?? this.isRunning,
-      shouldAskForSave ?? this.shouldAskForSave,
-      shouldMoveToSave ?? this.shouldMoveToSave,
+      duration: duration ?? this.duration,
+      laps: laps ?? this.laps,
+      isRunning: isRunning ?? this.isRunning,
+      hasSaveCompleted: hasSaveCompleted ?? this.hasSaveCompleted,
+      shouldMoveToSave: shouldMoveToSave ?? this.shouldMoveToSave,
+      shouldAskForSave: shouldAskForSave ?? this.shouldAskForSave,
     );
   }
 }

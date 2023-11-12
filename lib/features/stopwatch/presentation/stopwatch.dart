@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stopwatch/features/stopwatch/data/headers.dart';
+import 'package:stopwatch/features/stopwatch/data/models/headers.dart';
 import 'package:stopwatch/features/stopwatch/presentation/lap_view.dart';
 import 'package:stopwatch/features/stopwatch/presentation/time_widget.dart';
 import 'package:stopwatch/widgets/confirmation_dialog.dart';
+import 'package:stopwatch/widgets/snackbar.dart';
 
 import '../../history/presentation/history_view.dart';
 import '../domain/bloc/stopwatch_bloc.dart';
@@ -114,7 +115,9 @@ class StopWatchBody extends StatelessWidget {
 class StopWatchActions extends StatelessWidget {
   final StopwatchBloc bloc;
 
-  const StopWatchActions({super.key, required this.bloc});
+  StopWatchActions({super.key, required this.bloc});
+
+  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +125,8 @@ class StopWatchActions extends StatelessWidget {
         listenWhen: (oldState, newState) =>
             oldState.isRunning != newState.isRunning ||
             oldState.shouldAskForSave != newState.shouldAskForSave ||
-            oldState.shouldMoveToSave != newState.shouldMoveToSave,
+            oldState.shouldMoveToSave != newState.shouldMoveToSave ||
+            oldState.hasSaveCompleted != newState.hasSaveCompleted,
         listener: (context, state) {
           if (state.shouldAskForSave) {
             showDialog(
@@ -145,32 +149,39 @@ class StopWatchActions extends StatelessWidget {
               barrierColor: Colors.white.withOpacity(0),
               context: context,
               builder: (context) {
-                return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 500),
-                  switchInCurve: Curves.bounceInOut,
-                  child: ConfirmationDialog(
-                    title: 'Please name your stopwatch.',
-                    onConfirm: () async {},
-                    child: TextField(
-                      cursorColor: Colors.indigo,
-                      decoration: InputDecoration(
-                        focusedBorder: const UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.indigo,
-                            width: 1.5,
-                          ),
+                return ConfirmationDialog(
+                  title: 'Please name your stopwatch.',
+                  onConfirm: () async {
+                    GoRouter.of(context).pop();
+                    await bloc.save(textEditingController.text);
+                  },
+                  child: TextField(
+                    controller: textEditingController,
+                    cursorColor: Colors.indigo,
+                    decoration: InputDecoration(
+                      focusedBorder: const UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.indigo,
+                          width: 1.5,
                         ),
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.grey.shade600,
-                            width: 1.5,
-                          ),
+                      ),
+                      enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                          color: Colors.grey.shade600,
+                          width: 1.5,
                         ),
                       ),
                     ),
                   ),
                 );
               },
+            );
+          } else if (state.hasSaveCompleted) {
+            TopSnackBarOverlay.showTopSnackbar(
+              context: context,
+              message: 'Succefully saved!',
+              backgroundColor: Colors.green,
+              icon: Icons.done,
             );
           }
         },
