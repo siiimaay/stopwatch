@@ -1,6 +1,6 @@
 # stopwatch
 
-This is a stopwatch app where you can save your action time. This is mobile only project so it will only run ios/android
+This is a stopwatch app where you can save your action time. This is mobile only project so it will only run in ios/android
 
 ## Getting Started
 
