@@ -5,12 +5,7 @@ import '../domain/bloc/stopwatch_bloc.dart';
 import 'lap_detail.dart';
 
 class LapViewBlocBuilder extends StatelessWidget {
-  final StopwatchBloc bloc;
-
-  const LapViewBlocBuilder({
-    super.key,
-    required this.bloc,
-  });
+  const LapViewBlocBuilder({super.key});
 
   @override
   Widget build(BuildContext context) {

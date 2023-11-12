@@ -1,62 +1,109 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:stopwatch/features/stopwatch/data/headers.dart';
 import 'package:stopwatch/features/stopwatch/presentation/lap_view.dart';
 import 'package:stopwatch/features/stopwatch/presentation/time_widget.dart';
 
+import '../../history/presentation/history_view.dart';
 import '../domain/bloc/stopwatch_bloc.dart';
 
-class StopWatchView extends StatelessWidget {
-  const StopWatchView({super.key});
+class StopWatchAppView extends StatefulWidget {
+  const StopWatchAppView({Key? key}) : super(key: key);
+
+  @override
+  State<StopWatchAppView> createState() => _StopWatchAppViewState();
+}
+
+class _StopWatchAppViewState extends State<StopWatchAppView> {
+  int _pageIndex = 0;
+
+  List<Widget> screens = [
+    const HistoryView(),
+    const StopWatchBody(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => StopwatchBloc(),
-      child: StopWatchBody(
-        stopwatchBloc: StopwatchBloc(),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          Headers.values[_pageIndex].name,
+          style: const TextStyle(
+              color: Colors.indigo, fontWeight: FontWeight.w500),
+        ),
+        elevation: 0.8,
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+              gradient: LinearGradient(colors: [
+            Color(0xFFD1C4E9),
+            Color(0xFFBBDEFB),
+          ])),
+        ),
       ),
+      bottomNavigationBar: Container(
+        decoration: const BoxDecoration(
+            gradient: LinearGradient(colors: [
+          Color(0xFFD1C4E9),
+          Color(0xFFBBDEFB),
+        ])),
+        child: BottomNavigationBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          currentIndex: _pageIndex,
+          onTap: (index) {
+            setState(() {
+              _pageIndex = index;
+            });
+          },
+          fixedColor: Colors.indigo,
+          unselectedLabelStyle: TextStyle(color: Colors.indigo),
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.history,
+              ),
+              label: 'History',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.timer,
+              ),
+              label: 'Stopwatch',
+            ),
+          ],
+        ),
+      ),
+      body: screens[_pageIndex],
     );
   }
 }
 
 class StopWatchBody extends StatelessWidget {
-  final StopwatchBloc stopwatchBloc;
-
-  const StopWatchBody({super.key, required this.stopwatchBloc});
+  const StopWatchBody({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            "Stopwatch",
-            style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500),
-          ),
-          elevation: 0.8,
-          flexibleSpace: Container(
-            decoration: const BoxDecoration(
-                gradient: LinearGradient(colors: [
-              Color(0xFFD1C4E9),
-              Color(0xFFBBDEFB),
-            ])),
-          ),
-        ),
-        body: Column(
+    return BlocProvider(
+      create: (context) => StopwatchBloc(),
+      child: Builder(builder: (context) {
+        return const Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const TimeWidgetBlocBuilder(),
-            const SizedBox(height: 20),
-            const StopWatchActions(),
-            const SizedBox(height: 20),
+            TimeWidgetBlocBuilder(),
+            SizedBox(height: 20),
+            StopWatchActions(),
+            SizedBox(height: 20),
             Expanded(
-              child: LapViewBlocBuilder(
-                bloc: stopwatchBloc,
-              ),
+              child: LapViewBlocBuilder(),
             ),
           ],
-        ));
+        );
+      }),
+    );
   }
 }
 

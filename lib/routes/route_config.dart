@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stopwatch/features/auth/presentation/auth_view.dart';
 import 'package:stopwatch/features/auth/presentation/login_view.dart';
 
 import '../features/auth/presentation/sign_up_view.dart';
@@ -43,7 +42,7 @@ class AppRouter {
           name: stopwatchRoute,
           path: '/$stopwatchRoute',
           pageBuilder: (context, state) {
-            return MaterialPage(child: StopWatchView());
+            return MaterialPage(child: StopWatchAppView());
           },
         ),
         GoRoute(

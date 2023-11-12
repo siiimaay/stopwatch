@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
-  late Timer _timer;
+  Timer? _timer;
 
   StopwatchBloc()
       : super(const StopwatchState(Duration.zero, [], false, false));
@@ -29,7 +29,7 @@ class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
             milliseconds: 1 + state.duration.inMilliseconds,
           ));
     } else if (event is StopEvent) {
-      _timer.cancel();
+      _timer?.cancel();
       yield state.copyWith(isRunning: false);
     } else if (event is ResetEvent) {
       yield state.copyWith(
@@ -45,7 +45,10 @@ class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
 
   @override
   Future<void> close() {
-    _timer.cancel();
+    if (_timer?.isActive == true) {
+      _timer?.cancel();
+    }
+
     return super.close();
   }
 }
@@ -67,7 +70,11 @@ class StopwatchState {
   final bool shouldAskForSave;
 
   const StopwatchState(
-      this.duration, this.laps, this.isRunning, this.shouldAskForSave);
+    this.duration,
+    this.laps,
+    this.isRunning,
+    this.shouldAskForSave,
+  );
 
   StopwatchState copyWith({
     Duration? duration,
