@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:stopwatch/core/injection/locator.dart';
+import 'package:stopwatch/features/auth/domain/login_service.dart';
 import 'package:stopwatch/features/stopwatch/data/models/headers.dart';
 import 'package:stopwatch/features/stopwatch/presentation/lap_view.dart';
 import 'package:stopwatch/features/stopwatch/presentation/time_widget.dart';
+import 'package:stopwatch/routes/route_config.dart';
 import 'package:stopwatch/widgets/confirmation_dialog.dart';
 import 'package:stopwatch/widgets/snackbar.dart';
 
@@ -35,6 +38,21 @@ class _StopWatchAppViewState extends State<StopWatchAppView> {
           style: const TextStyle(
               color: Colors.indigo, fontWeight: FontWeight.w500),
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IconButton(
+              onPressed: () async {
+                getIt<LoginService>()
+                    .signOut()
+                    .whenComplete(() => context.goNamed(AppRouter.loginRoute));
+              },
+              icon: Icon(
+                Icons.logout,
+              ),
+            ),
+          ),
+        ],
         elevation: 0.8,
         flexibleSpace: Container(
           decoration: const BoxDecoration(

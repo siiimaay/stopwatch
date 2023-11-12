@@ -43,8 +43,8 @@ class LoginService implements IAuthService {
   }
 
   @override
-  Future<void> signOut() {
-    throw UnimplementedError();
+  Future signOut() async {
+    await _auth.signOut();
   }
 
   @override
