@@ -103,12 +103,12 @@ class _SignUpViewState extends State<SignUpView> {
                     const SizedBox(height: 20),
                     const FormFieldLabel(label: 'Username'),
                     Flexible(
-                        child: AuthTextField(
+                        child: InputTextField(
                       controller: _userNameController,
                     )),
                     const FormFieldLabel(label: 'Password'),
                     Flexible(
-                        child: AuthTextField(
+                        child: InputTextField(
                       controller: _passwordController,
                       isObscure: true,
                     )),

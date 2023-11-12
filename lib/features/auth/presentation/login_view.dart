@@ -90,13 +90,13 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     const FormFieldLabel(label: 'Email'),
                     Flexible(
-                        child: AuthTextField(
+                        child: InputTextField(
                       controller: _emailController,
                     )),
                     const FormFieldLabel(label: 'Password'),
                     Flexible(
                         flex: 1,
-                        child: AuthTextField(
+                        child: InputTextField(
                           controller: _passwordController,
                           isObscure: true,
                         )),

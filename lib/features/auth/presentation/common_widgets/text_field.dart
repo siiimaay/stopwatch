@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AuthTextField extends StatelessWidget {
+class InputTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool isObscure;
 
-  const AuthTextField(
-      {Key? key, required this.controller, this.isObscure = false})
-      : super(key: key);
+  const InputTextField({
+    Key? key,
+    required this.controller,
+    this.isObscure = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
