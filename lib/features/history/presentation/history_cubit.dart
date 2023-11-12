@@ -20,7 +20,6 @@ class HistoryCubit extends Cubit<HistoryState> {
 
   Future<void> deleteRecord(String? recordId) async {
     if (recordId == null) throw 'Id must not be null';
-    print(recordId);
     await repository.deleteStopwatch(recordId);
   }
 }

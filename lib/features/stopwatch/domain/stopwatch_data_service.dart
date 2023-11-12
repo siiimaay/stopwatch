@@ -49,7 +49,6 @@ class StopWatchStorageService implements FirestoreService {
     List<String>? laps,
   }) async {
     final id = const Uuid().v4();
-    print(laps);
     final stopwatchRecords = StopwatchRecord(
       id: id,
       name: name!,
