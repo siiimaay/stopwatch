@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:stopwatch/features/login/presentation/auth_view.dart';
-import 'package:stopwatch/features/login/presentation/login_view.dart';
+import 'package:stopwatch/features/auth/presentation/auth_view.dart';
+import 'package:stopwatch/features/auth/presentation/login_view.dart';
 
-import '../features/login/presentation/sign_up_view.dart';
+import '../features/auth/presentation/sign_up_view.dart';
 import '../features/stopwatch/presentation/stopwatch.dart';
 
 class AppRouter {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lottie/lottie.dart';
-import 'package:stopwatch/features/login/presentation/wave_shape_clipper.dart';
+import 'package:stopwatch/features/auth/presentation/wave_shape_clipper.dart';
 import 'package:stopwatch/widgets/action_button.dart';
 
 import '../../../routes/route_config.dart';

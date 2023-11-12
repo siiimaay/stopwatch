@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 
 class AuthTextField extends StatelessWidget {
   final TextEditingController controller;
+  final bool isObscure;
 
-  const AuthTextField({Key? key, required this.controller}) : super(key: key);
+  const AuthTextField(
+      {Key? key, required this.controller, this.isObscure = false})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -12,6 +15,7 @@ class AuthTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         cursorColor: Colors.grey,
+        obscureText: isObscure,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30),
