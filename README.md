@@ -1,16 +1,19 @@
 # stopwatch
 
-A new Flutter project.
+This is a stopwatch app where you can save your action time. This is mobile only project so it will only run ios/android
 
 ## Getting Started
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+### Step 1: Build Dependencies
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+To prepare the project for running, you need to generate necessary files and dependencies.
+Please run the following command in your project's root directory:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+flutter pub run build_runner build --delete-conflicting-outputs
+
+### Step 2: Running the app in mobile
+flutter run
+
+
