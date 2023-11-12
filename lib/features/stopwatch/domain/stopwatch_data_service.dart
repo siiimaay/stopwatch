@@ -9,9 +9,12 @@ class StopWatchStorageService implements FirestoreService {
   final _collection = FirebaseFirestore.instance.collection('stopwatchRecords');
 
   @override
-  Future<void> deleteRecord() {
-    // TODO: implement deleteRecord
-    throw UnimplementedError();
+  Future<void> deleteRecord({String? id}) async {
+    try {
+      await _collection.doc('$id').delete();
+    } catch (e) {
+      print(e);
+    }
   }
 
   @override
@@ -20,8 +23,7 @@ class StopWatchStorageService implements FirestoreService {
     final userId = FirebaseAuth.instance.currentUser?.uid;
     if (userId == null) throw 'User id must not be null';
 
-    return FirebaseFirestore.instance
-        .collection('stopwatchRecords')
+    return _collection
         .where('userId', isEqualTo: userId)
         .get()
         .then((querySnapshot) {
@@ -44,18 +46,20 @@ class StopWatchStorageService implements FirestoreService {
   Future<void> saveRecord({
     String? name = 'Default',
     String? duration = '',
-    int? lapsCount = 0,
+    List<String>? laps,
   }) async {
+    final id = const Uuid().v4();
+    print(laps);
     final stopwatchRecords = StopwatchRecord(
-      id: const Uuid().v4(),
+      id: id,
       name: name!,
       duration: duration!,
-      lapsCount: lapsCount!,
       userId: FirebaseAuth.instance.currentUser!.uid,
+      laps: laps ?? [],
     ).toJson();
     await _firebaseFirestore
         .collection('stopwatchRecords')
-        .doc()
+        .doc(id)
         .set(stopwatchRecords);
   }
 }

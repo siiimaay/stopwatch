@@ -18,16 +18,16 @@ class StopwatchRepository {
     return await _stopwatchStorageService.fetchRecords();
   }
 
-  Future<void> deleteStopwatch() async {
-    await _stopwatchStorageService.deleteRecord();
+  Future<void> deleteStopwatch(String id) async {
+    await _stopwatchStorageService.deleteRecord(id: id);
   }
 
   Future<void> saveStopwatch(
-      String name, String duration, int lapsCount) async {
+      String name, String duration, List<String> laps) async {
     await _stopwatchStorageService.saveRecord(
       name: name,
       duration: duration,
-      lapsCount: lapsCount,
+      laps: laps,
     );
   }
 }

@@ -28,9 +28,14 @@ class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
   void confirmSave() => add(ConfirmSave());
 
   Future<void> save(String name) async {
+    List<String> lapsList = List.empty(growable: true);
     try {
-      await stopwatchRepository?.saveStopwatch(
-          name, state.duration.formatDurationAsText(), state.laps.length);
+      for (var element in state.laps) {
+        lapsList.add(element.formatDurationAsText());
+      }
+
+      await stopwatchRepository?.saveStopwatch(name.isEmpty ? 'Default' : name,
+          state.duration.formatDurationAsText(), lapsList);
       add(SaveEvent());
     } catch (e) {
       add(ErrorEvent());
@@ -47,13 +52,12 @@ class StopwatchBloc extends Bloc<StopWatchEvent, StopwatchState> {
         ),
         shouldAskForSave: false,
         shouldMoveToSave: false,
+        hasSaveCompleted: false,
       );
     } else if (event is StopEvent) {
       _timer?.cancel();
       yield state.copyWith(
-        isRunning: false,
-        shouldAskForSave: true,
-      );
+          isRunning: false, shouldAskForSave: true, laps: state.laps);
     } else if (event is ResetEvent) {
       yield state.copyWith(
         duration: Duration.zero,

@@ -8,14 +8,14 @@ class StopwatchRecord {
   final String id;
   final String? name;
   final String? duration;
-  final int? lapsCount;
+  final List<String> laps;
 
   StopwatchRecord({
     required this.userId,
-    required this.name,
     required this.duration,
-    required this.lapsCount,
     required this.id,
+    this.laps = const [],
+    this.name = 'Default',
   });
   factory StopwatchRecord.fromJson(Map<String, dynamic> json) =>
       _$StopwatchRecordFromJson(json);

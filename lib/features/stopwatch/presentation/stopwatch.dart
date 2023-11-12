@@ -179,7 +179,7 @@ class StopWatchActions extends StatelessWidget {
           } else if (state.hasSaveCompleted) {
             TopSnackBarOverlay.showTopSnackbar(
               context: context,
-              message: 'Succefully saved!',
+              message: 'Successfully saved!',
               backgroundColor: Colors.green,
               icon: Icons.done,
             );
