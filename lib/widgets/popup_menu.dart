@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:stopwatch/routes/route_config.dart';
 
 import 'confirmation_dialog.dart';
 
 class MenuItemPopup extends StatelessWidget {
   final Function()? onDelete;
 
-  MenuItemPopup({required this.onDelete}) : super();
+  MenuItemPopup({
+    required this.onDelete,
+  }) : super();
 
   PopupMenuItem<PopupMenuAction> _buildPopupMenuItem(String title,
       IconData iconData, PopupMenuAction action, BuildContext context) {
@@ -60,7 +64,10 @@ class MenuItemPopup extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return ConfirmationDialog(
-                  onConfirm: onDelete?.call(),
+                  onConfirm: () async {
+                    await onDelete?.call();
+                    GoRouter.of(context).pushNamed(AppRouter.stopwatchRoute);
+                  },
                   title: 'Do you want to delete?',
                   child: const Text("You cannot undo this action"),
                 );

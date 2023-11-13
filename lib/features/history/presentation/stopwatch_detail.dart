@@ -25,13 +25,10 @@ class StopwatchDetailView extends StatelessWidget {
         centerTitle: true,
         title: Text(
           'About: $name',
-          style: TextStyle(color: Colors.indigo, fontWeight: FontWeight.w500),
+          style: const TextStyle(
+              color: Colors.indigo, fontWeight: FontWeight.w500),
         ),
-        actions: [
-          MenuItemPopup(
-            onDelete: onDelete,
-          )
-        ],
+        actions: [MenuItemPopup(onDelete: onDelete)],
         elevation: 0.8,
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -45,16 +42,14 @@ class StopwatchDetailView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TimerBox(
-                  time: duration,
-                ),
-              ],
-            ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TimerBox(
+                time: duration,
+              ),
+            ],
           ),
           ListView.builder(
               shrinkWrap: true,

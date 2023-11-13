@@ -62,6 +62,7 @@ class AppRouter {
                 duration: extra.duration ?? "",
                 laps: extra.laps ?? [],
                 name: extra.name ?? "",
+                onDelete: extra.onDelete,
               );
             }),
       ],
