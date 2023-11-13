@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:stopwatch/features/history/data/history_detail.dart';
 import 'package:stopwatch/routes/route_config.dart';
 
-import 'history_cubit.dart';
+import '../domain/history_cubit.dart';
 
 class HistoryView extends StatelessWidget {
   const HistoryView({Key? key}) : super(key: key);

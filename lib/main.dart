@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:stopwatch/features/app/app_view.dart';
+import 'package:stopwatch/features/app/presentation/app_view.dart';
 
 import 'core/injection/locator.dart';
 
