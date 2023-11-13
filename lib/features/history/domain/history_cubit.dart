@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:stopwatch/features/stopwatch/data/models/stopwatch_record.dart';
 import 'package:stopwatch/features/stopwatch/data/repository/stopwatch_repository.dart';
 

@@ -13,7 +13,7 @@ class StopWatchStorageService implements FirestoreService {
     try {
       await _collection.doc('$id').delete();
     } catch (e) {
-      print(e);
+      rethrow;
     }
   }
 
@@ -38,7 +38,6 @@ class StopWatchStorageService implements FirestoreService {
 
   @override
   Future<void> renameRecord() {
-    // TODO: implement renameRecord
     throw UnimplementedError();
   }
 

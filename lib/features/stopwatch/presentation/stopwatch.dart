@@ -47,9 +47,7 @@ class _StopWatchAppViewState extends State<StopWatchAppView> {
                     .signOut()
                     .whenComplete(() => context.goNamed(AppRouter.loginRoute));
               },
-              icon: Icon(
-                Icons.logout,
-              ),
+              icon: const Icon(Icons.logout),
             ),
           ),
         ],

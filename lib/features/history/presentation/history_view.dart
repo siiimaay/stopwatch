@@ -69,7 +69,7 @@ class HistoryView extends StatelessWidget {
                                   .read<HistoryCubit>()
                                   .deleteRecord(savedStopwatch.id);
                             },
-                            backgroundColor: Color(0xFFFE4A49),
+                            backgroundColor: const Color(0xFFFE4A49),
                             foregroundColor: Colors.white,
                             icon: Icons.delete,
                             label: 'Delete',
@@ -92,7 +92,7 @@ class HistoryView extends StatelessWidget {
                               fontWeight: FontWeight.w500),
                         ),
                         subtitle: Text(
-                          '# of laps: ${savedStopwatch?.laps.length.toString()}',
+                          '# of laps: ${savedStopwatch.laps.length.toString()}',
                           style: const TextStyle(fontWeight: FontWeight.w500),
                         ),
                       ),
