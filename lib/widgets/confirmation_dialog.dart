@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class ConfirmationDialog extends StatelessWidget {
   final String title;
   final String? content;
   final Widget child;
   final VoidCallback? onConfirm;
+  final VoidCallback? onCancel;
 
   const ConfirmationDialog({
     super.key,
@@ -12,6 +14,7 @@ class ConfirmationDialog extends StatelessWidget {
     this.content,
     required this.child,
     required this.onConfirm,
+    this.onCancel,
   });
 
   @override
@@ -22,7 +25,10 @@ class ConfirmationDialog extends StatelessWidget {
       actions: [
         TextButton(
           child: Text('Cancel', style: TextStyle(color: Colors.grey.shade500)),
-          onPressed: () => Navigator.of(context).pop(),
+          onPressed: () {
+            onCancel?.call();
+            GoRouter.of(context).pop();
+          },
         ),
         TextButton(
           child: const Text(

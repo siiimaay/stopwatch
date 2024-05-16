@@ -17,7 +17,7 @@ class TimerBox extends StatelessWidget {
         ]),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Text(time, style: const TextStyle(fontSize: 40)),
+      child: Center(child: Text(time, style: const TextStyle(fontSize: 40))),
     );
   }
 }

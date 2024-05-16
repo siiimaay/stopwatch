@@ -35,6 +35,12 @@ class _SignUpViewState extends State<SignUpView> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -52,6 +58,7 @@ class _SignUpViewState extends State<SignUpView> {
           ])),
         ),
       ),
+      resizeToAvoidBottomInset: true,
       body: BlocProvider<SignUpCubit>(
         create: (context) => SignUpCubit(),
         child: Builder(builder: (context) {
@@ -59,7 +66,6 @@ class _SignUpViewState extends State<SignUpView> {
             listener: (context, state) {
               final event = state.registerEvent;
               if (event is SuccessfulRegister) {
-                GoRouter.of(context).go('/${AppRouter.loginRoute}');
               } else if (event is FailedRegister) {
                 Navigator.of(context).pop();
                 TopSnackBarOverlay.showTopSnackbar(
@@ -83,100 +89,105 @@ class _SignUpViewState extends State<SignUpView> {
               }
             },
             builder: (context, state) {
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Form(
-                  key: _formKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Flexible(
-                        child: Padding(
-                          padding: EdgeInsets.only(top: 40),
-                          child: Text(
-                            'Create Account',
-                            style: TextStyle(
-                                color: Colors.indigo,
-                                fontWeight: FontWeight.w700,
-                                fontSize: 24),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      const FormFieldLabel(label: 'Username'),
-                      Flexible(
-                          child: InputTextField(
-                        controller: _userNameController,
-                      )),
-                      const FormFieldLabel(label: 'Password'),
-                      Flexible(
-                          child: InputTextField(
-                        controller: _passwordController,
-                        isObscure: true,
-                      )),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: InternationalPhoneNumberInput(
-                          onInputChanged: (PhoneNumber number) {
-                            if (number.isoCode != null) {
-                              _countryController.text = number.isoCode!;
-                            }
-                          },
-                          selectorConfig: const SelectorConfig(
-                            selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                          ),
-                          selectorTextStyle:
-                              const TextStyle(color: Colors.black),
-                          textFieldController: _phoneNumberController,
-                          formatInput: true,
-                          keyboardType: const TextInputType.numberWithOptions(
-                            signed: true,
-                            decimal: true,
-                          ),
-                          searchBoxDecoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: const BorderSide(
-                                color: Colors.indigo,
-                                width: 1.5,
-                              ),
-                            ),
-                          ),
-                          inputDecoration: InputDecoration(
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5),
-                              borderSide: const BorderSide(
-                                color: Colors.indigo,
-                                width: 1.5,
-                              ),
+              return SingleChildScrollView(
+                child: Container(
+                  height: 600,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Flexible(
+                          child: Padding(
+                            padding: EdgeInsets.only(top: 40),
+                            child: Text(
+                              'Create Account',
+                              style: TextStyle(
+                                  color: Colors.indigo,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24),
                             ),
                           ),
                         ),
-                      ),
-                      const Spacer(),
-                      Center(
-                        child: ActionButton(
-                          buttonText: 'Create Account',
-                          onPressed: () {
-                            if (_formKey.currentState?.validate() == true) {
-                              _cubit(context).createAccount(
-                                _userNameController.text,
-                                _passwordController.text,
-                                _phoneNumberController.text,
-                                _countryController.text,
-                              );
-                            }
-                          },
-                          textColor: Colors.indigo,
-                          buttonSize: const Size(200, 45),
-                          gradient: const LinearGradient(colors: [
-                            Color(0xFFD1C4E9),
-                            Color(0xFFBBDEFB),
-                          ]),
+                        const SizedBox(height: 20),
+                        const FormFieldLabel(label: 'Username'),
+                        Flexible(
+                            child: InputTextField(
+                          controller: _userNameController,
+                        )),
+                        const FormFieldLabel(label: 'Password'),
+                        Flexible(
+                            child: InputTextField(
+                          controller: _passwordController,
+                          isObscure: true,
+                        )),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: InternationalPhoneNumberInput(
+                            onInputChanged: (PhoneNumber number) {
+                              if (number.isoCode != null) {
+                                _countryController.text = number.isoCode!;
+                              }
+                            },
+                            selectorConfig: const SelectorConfig(
+                              selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+                            ),
+                            selectorTextStyle:
+                                const TextStyle(color: Colors.black),
+                            textFieldController: _phoneNumberController,
+                            formatInput: true,
+                            keyboardType: const TextInputType.numberWithOptions(
+                              signed: true,
+                              decimal: true,
+                            ),
+                            searchBoxDecoration: InputDecoration(
+                              hintText: 'Search for country',
+                              icon: const Icon(Icons.search),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: const BorderSide(
+                                  color: Colors.indigo,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                            inputDecoration: InputDecoration(
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5),
+                                borderSide: const BorderSide(
+                                  color: Colors.indigo,
+                                  width: 1.5,
+                                ),
+                              ),
+                            ),
+                          ),
                         ),
-                      )
-                    ],
+                        const Spacer(),
+                        Center(
+                          child: ActionButton(
+                            buttonText: 'Create Account',
+                            onPressed: () {
+                              if (_formKey.currentState?.validate() == true) {
+                                _cubit(context).createAccount(
+                                  _userNameController.text,
+                                  _passwordController.text,
+                                  _phoneNumberController.text,
+                                  _countryController.text,
+                                );
+                              }
+                            },
+                            textColor: Colors.indigo,
+                            buttonSize: const Size(200, 45),
+                            gradient: const LinearGradient(colors: [
+                              Color(0xFFD1C4E9),
+                              Color(0xFFBBDEFB),
+                            ]),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               );

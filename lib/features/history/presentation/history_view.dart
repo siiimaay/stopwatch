@@ -54,7 +54,7 @@ class HistoryView extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16.0)),
                     elevation: 1,
                     child: Slidable(
-                      key: const ValueKey(0),
+                      key: UniqueKey(),
                       endActionPane: ActionPane(
                         motion: const ScrollMotion(),
                         dismissible: DismissiblePane(onDismissed: () async {

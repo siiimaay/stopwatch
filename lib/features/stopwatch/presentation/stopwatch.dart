@@ -170,6 +170,10 @@ class StopWatchActions extends StatelessWidget {
                   onConfirm: () async {
                     GoRouter.of(context).pop();
                     await bloc.save(textEditingController.text);
+                    textEditingController.clear();
+                  },
+                  onCancel: () {
+                    textEditingController.clear();
                   },
                   child: TextField(
                     controller: textEditingController,

@@ -69,6 +69,7 @@ class MenuItemPopup extends StatelessWidget {
                     GoRouter.of(context).pushNamed(AppRouter.stopwatchRoute);
                   },
                   title: 'Do you want to delete?',
+                  onCancel: () {},
                   child: const Text("You cannot undo this action"),
                 );
               },
